@@ -27,7 +27,6 @@ public class RotationGame : MiniGame
         {
             isRotating = false;
             StartCoroutine(FadeModel());
-            isSolved = true;
         }
             
     }
@@ -86,6 +85,7 @@ public class RotationGame : MiniGame
             }
         // If material completely transparent or completely opaque, end coroutine
         yield return new WaitUntil(() => isSolved? meshRenderer.materials[0].color.a >= 1f : meshRenderer.materials[0].color.a <= 0);
+        yield return isSolved = true;
     }
     void AutoRotate()
     {
