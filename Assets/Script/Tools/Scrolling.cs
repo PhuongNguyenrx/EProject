@@ -3,7 +3,6 @@ using UnityEngine;
 public class Scrolling : MonoBehaviour
 {
     [SerializeField] Transform stageHolder;
-    int currentStageIndex;
     [SerializeField] float yoffset;
 
     private Vector2 touchStartPos;
@@ -21,14 +20,14 @@ public class Scrolling : MonoBehaviour
 
     [SerializeField] private float scrollSpeedMultiplier = 0.0001f; // Multiplier to control scroll speed
     
-
+    // Set up screen heights, mintouchdelta, etc
     void Start()
     {
         screenHeight = Screen.height;
         triggerHeight = screenHeight * scrollTolerance; // % of the screen height allow scrolling
         minTouchDeltaForReturn = screenHeight * scrollThreshold;
     }
-
+    //Handle touch input
     void Update()
     {
         // Check for touch input
@@ -54,7 +53,7 @@ public class Scrolling : MonoBehaviour
                     {
                         // Calculate touch delta
                         touchDelta = touch.position.y - touchStartPos.y;
-                        if(currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0 || currentStageIndex > 0 && touchDelta < 0)
+                        if(GameManager.instance.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0 || GameManager.instance.currentStageIndex > 0 && touchDelta < 0)
                         stageHolder.transform.position += new Vector3(0f, touchDelta * scrollSpeedMultiplier, 0f);
                     }
                     break;
@@ -68,15 +67,20 @@ public class Scrolling : MonoBehaviour
                     }
                     else
                     {
-                        if (currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0)
-                            currentStageIndex += 1;
-                        else if (currentStageIndex > 0 && touchDelta < 0)
-                            currentStageIndex -= 1;
-                        stageHolder.position = new Vector3 ( stageHolder.position.x, Mathf.Abs(yoffset * currentStageIndex), stageHolder.position.z);  
+                        if (GameManager.instance.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0)
+                            GameManager.instance.UpdateStageIndex (GameManager.instance.currentStageIndex + 1);
+                        else if (GameManager.instance.currentStageIndex > 0 && touchDelta < 0)
+                            GameManager.instance.UpdateStageIndex(GameManager.instance.currentStageIndex - 1);
                     }
                     touchDelta = 0;
                     break;
             }
         }
+        UpdateScrollPosition();
+    }
+
+    void UpdateScrollPosition()
+    {
+        stageHolder.position = new Vector3(stageHolder.position.x, Mathf.Abs(yoffset * GameManager.instance.currentStageIndex), stageHolder.position.z);
     }
 }

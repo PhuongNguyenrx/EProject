@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RotationGame : MonoBehaviour
+public class RotationGame : MiniGame
 {
     [SerializeField] float touchSensitivity = 0.1f; // Touch sensitivity for rotation
     [SerializeField] private float smoothReturnSpeed = 1f;
@@ -9,26 +9,32 @@ public class RotationGame : MonoBehaviour
     private Quaternion desiredRotation;
     private bool isRotating = true; // Flag to indicate whether the model is rotating
     bool isFading = false;// Flag to indicate whether the model is fading
-    bool skip = false;// Flag to indicate if the game is skipped
+    
 
 
     private void Start()
     {
-        desiredRotation= transform.rotation; 
-        transform.rotation = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f)); //randomize rotation on start
+        desiredRotation= transform.rotation;
+        RandomizeRotation();
     }
     void Update() //Handle logic
     {
         if (isRotating)
             HandleRotateInput(); //Users touch input rotation (2 axis)
-        if (skip) 
+        if (skip)
             AutoRotate();
         if (!isFading && CompareRotation())
         {
             isRotating = false;
-            StartCoroutine(FadeOutModel());
+            StartCoroutine(FadeModel());
+            isSolved = true;
         }
             
+    }
+
+    void RandomizeRotation()
+    {
+        transform.rotation = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f)); //randomize rotation on start
     }
     void HandleRotateInput()
     {
@@ -46,36 +52,58 @@ public class RotationGame : MonoBehaviour
         // Check if the rotation is approximately -90 degrees around the x-axis
         return Quaternion.Angle(desiredRotation, transform.rotation)<1? true : false;
     }
-    IEnumerator FadeOutModel()
+    IEnumerator FadeModel()
     {
         isFading = true;
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         // Get the color value of the main material
         Color color = meshRenderer.materials[0].color;
 
-        // While the color's alpha value is above 0
-        while (color.a > 0)
-        {
-            // Reduce the color's alpha value
-            color.a -= 0.1f;
+        if (!isSolved)
+            // While the color's alpha value is above 0
+            while (color.a > 0)
+            {
+                // Reduce the color's alpha value
+                color.a -= 0.1f;
 
-            // Apply the modified color to the object's mesh renderer
-            meshRenderer.materials[0].color = color;
+                // Apply the modified color to the object's mesh renderer
+                meshRenderer.materials[0].color = color;
 
-            // Wait for the frame to update
-            yield return new WaitForSeconds(0.1f);
-        }
+                // Wait for the frame to update
+                yield return new WaitForSeconds(0.1f);
+            } 
+        else
+            while (color.a < 1)
+            {
+                // Reduce the color's alpha value
+                color.a += 0.1f;
 
-        // If the material's color's alpha value is less than or equal to 0, end the coroutine
-        yield return new WaitUntil(() => meshRenderer.materials[0].color.a <= 0f);
-    }
-    public void Skip()
-    {
-        skip = true;
+                // Apply the modified color to the object's mesh renderer
+                meshRenderer.materials[0].color = color;
+
+                // Wait for the frame to update
+                yield return new WaitForSeconds(0.1f);
+            }
+        // If material completely transparent or completely opaque, end coroutine
+        yield return new WaitUntil(() => isSolved? meshRenderer.materials[0].color.a >= 1f : meshRenderer.materials[0].color.a <= 0);
     }
     void AutoRotate()
     {
         float lerpFactor = smoothReturnSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, lerpFactor);
+    }
+
+    public override void Skip()
+    {
+        skip = true;
+    }
+    public override void ResetGame()
+    {
+        skip = false;
+        RandomizeRotation();
+        StartCoroutine(FadeModel());
+        isFading = false;
+        isRotating = true;
+        isSolved = false;
     }
 }
