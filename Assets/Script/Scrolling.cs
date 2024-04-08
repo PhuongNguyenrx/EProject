@@ -1,22 +1,32 @@
 using UnityEngine;
 
-public class ScrollableObject : MonoBehaviour
+public class Scrolling : MonoBehaviour
 {
+    [SerializeField] Transform stageHolder;
+    int currentStageIndex;
+    [SerializeField] float yoffset;
+
     private Vector2 touchStartPos;
     private bool isScrolling = false;
+
+    [Tooltip ("The percentage of the bottom/top of screen that allows scrolling motion")]
+    [SerializeField] float scrollTolerance;
+    [Tooltip("The minimum percentage of screen height allowed for mintouchdelta return")]
+    [SerializeField] float scrollThreshold;
     private float screenHeight;
     private float triggerHeight;
     float touchDelta;
+    private float minTouchDeltaForReturn = 10f;
     Vector3 startingPos;
 
     [SerializeField] private float scrollSpeedMultiplier = 0.0001f; // Multiplier to control scroll speed
-    [SerializeField] private float minTouchDeltaForReturn = 10f;
+    
 
     void Start()
     {
         screenHeight = Screen.height;
-        triggerHeight = screenHeight * 0.2f; // 20% of the screen height
-
+        triggerHeight = screenHeight * scrollTolerance; // % of the screen height allow scrolling
+        minTouchDeltaForReturn = screenHeight * scrollThreshold;
     }
 
     void Update()
@@ -34,7 +44,7 @@ public class ScrollableObject : MonoBehaviour
                     {
                         touchStartPos = touch.position;
                         isScrolling = true;
-                        startingPos = transform.position;
+                        startingPos = stageHolder.transform.position;
                     }
                     break;
 
@@ -44,8 +54,8 @@ public class ScrollableObject : MonoBehaviour
                     {
                         // Calculate touch delta
                         touchDelta = touch.position.y - touchStartPos.y;
-                        // Apply scrolling along the Y-axis with adjusted speed
-                            transform.position += new Vector3(0f, touchDelta * scrollSpeedMultiplier, 0f);
+                        if(currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0 || currentStageIndex > 0 && touchDelta < 0)
+                        stageHolder.transform.position += new Vector3(0f, touchDelta * scrollSpeedMultiplier, 0f);
                     }
                     break;
 
@@ -54,7 +64,15 @@ public class ScrollableObject : MonoBehaviour
                     isScrolling = false;
                     if (Mathf.Abs(touchDelta) < minTouchDeltaForReturn)
                     {
-                        transform.position = startingPos;
+                        stageHolder.transform.position = startingPos;
+                    }
+                    else
+                    {
+                        if (currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0)
+                            currentStageIndex += 1;
+                        else if (currentStageIndex > 0 && touchDelta < 0)
+                            currentStageIndex -= 1;
+                        stageHolder.position = new Vector3 ( stageHolder.position.x, Mathf.Abs(yoffset * currentStageIndex), stageHolder.position.z);  
                     }
                     touchDelta = 0;
                     break;
