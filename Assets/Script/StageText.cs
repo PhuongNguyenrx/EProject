@@ -12,7 +12,6 @@ public class StageText : MonoBehaviour
         if (stageMiniGame == null)
             return;
         textHolder.SetActive(stageMiniGame.isSolved);
-        if(gameUIHolder!=null) 
-            gameUIHolder.SetActive(!stageMiniGame.isSolved);
+        gameUIHolder.SetActive(!stageMiniGame.isSolved);
     }
 }
