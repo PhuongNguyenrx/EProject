@@ -61,25 +61,21 @@ public class Scrolling : MonoBehaviour
                 case TouchPhase.Ended:
                     // Reset scrolling flag
                     isScrolling = false;
-                    if (Mathf.Abs(touchDelta) < minTouchDeltaForReturn)
-                    {
-                        stageHolder.transform.position = startingPos;
-                    }
-                    else
+                    if (Mathf.Abs(touchDelta) > minTouchDeltaForReturn)
                     {
                         if (GameManager.instance.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0)
                             GameManager.instance.UpdateStageIndex (GameManager.instance.currentStageIndex + 1);
                         else if (GameManager.instance.currentStageIndex > 0 && touchDelta < 0)
                             GameManager.instance.UpdateStageIndex(GameManager.instance.currentStageIndex - 1);
                     }
+                    UpdateScrollPosition();
                     touchDelta = 0;
                     break;
             }
         }
-        UpdateScrollPosition();
     }
 
-    void UpdateScrollPosition()
+    public void UpdateScrollPosition()
     {
         stageHolder.position = new Vector3(stageHolder.position.x, Mathf.Abs(yoffset * GameManager.instance.currentStageIndex), stageHolder.position.z);
     }
