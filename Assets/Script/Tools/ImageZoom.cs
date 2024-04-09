@@ -23,6 +23,8 @@ public class ImageZoom : MonoBehaviour
     }
     void Zoom()
     {
+        if (GetComponent<RectTransform>().rect.height >= Screen.height)
+            return;
         // Toggle zoom state
         isZoomedIn = !isZoomedIn;
 
