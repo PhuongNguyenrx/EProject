@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class ImageZoom : MonoBehaviour
 {
     private bool isZoomedIn = false;
