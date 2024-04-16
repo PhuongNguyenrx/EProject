@@ -1,7 +1,7 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
 [RequireComponent(typeof(Button))]
 [RequireComponent (typeof(AudioSource))]
 public class ToggleAudio : MonoBehaviour
