@@ -5,6 +5,7 @@ public class RotationGame : MiniGame
 {
     [SerializeField] float touchSensitivity = 0.1f; // Touch sensitivity for rotation
     [SerializeField] private float smoothReturnSpeed = 1f;
+    [SerializeField] float customThreshold = 1f;
 
     private Quaternion desiredRotation;
     private bool isRotating = true; // Flag to indicate whether the model is rotating
@@ -48,8 +49,16 @@ public class RotationGame : MiniGame
     }
     bool CompareRotation()
     {
-        // Check if the rotation is approximately -90 degrees around the x-axis
-        return Quaternion.Angle(desiredRotation, transform.rotation)<1? true : false;
+        //// Check if the rotation is approximately -90 degrees around the x-axis
+        //return Quaternion.Angle(desiredRotation, transform.rotation)<1? true : false;
+        // Calculate the angle between the current rotation and the desired rotation
+        float angleDifference = Quaternion.Angle(desiredRotation, transform.rotation);
+
+        // Check if the angle difference is within a tolerance threshold
+        // Also, consider rotations around the Z-axis as correct solutions
+        bool isApproximatelyEqual = Mathf.Abs(angleDifference - 360f) < customThreshold;
+        // Return true if the angle difference is within the tolerance threshold or approximately equal to 360 degrees
+        return angleDifference < 1f || isApproximatelyEqual;
     }
     IEnumerator FadeModel()
     {
