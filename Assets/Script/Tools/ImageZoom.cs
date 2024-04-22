@@ -8,7 +8,6 @@ public class ImageZoom : MonoBehaviour
 {
     Sprite image;
     [SerializeField] GameObject targetPanel;
-    private bool isZoomedIn = false;
 
     void Start()
     { 
@@ -20,10 +19,7 @@ public class ImageZoom : MonoBehaviour
     }
     public void Zoom()
     {
-        // Toggle zoom state
-        targetPanel.GetComponent<Button>().onClick.AddListener(Zoom);
-        isZoomedIn = !isZoomedIn;
         targetPanel.GetComponent<Image>().sprite = image;
-        targetPanel.SetActive(isZoomedIn);
+        targetPanel.SetActive(true);
     }
 }
