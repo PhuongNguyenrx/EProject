@@ -5,6 +5,7 @@ public class RotationGame : MiniGame
 {
     [SerializeField] float touchSensitivity = 0.1f; // Touch sensitivity for rotation
     [SerializeField] private float smoothReturnSpeed = 1f;
+    [SerializeField] float customThreshold;
 
     private Quaternion desiredRotation;
     private bool isRotating = true; // Flag to indicate whether the model is rotating
@@ -33,7 +34,8 @@ public class RotationGame : MiniGame
 
     void RandomizeRotation()
     {
-        transform.rotation = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f)); //randomize rotation on start
+        float randomXRotation = Random.Range(-45f, 45f);
+        transform.Rotate(randomXRotation, 0, 0);    
     }
     void HandleRotateInput()
     {
@@ -41,15 +43,26 @@ public class RotationGame : MiniGame
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
             float rotationX = -touchDeltaPosition.y * touchSensitivity;
-            float rotationY = touchDeltaPosition.x * touchSensitivity;
-            transform.Rotate(Vector3.right, rotationX, Space.World);
-            transform.Rotate(Vector3.up, rotationY, Space.World);
+            //float rotationY = touchDeltaPosition.x * touchSensitivity;
+            transform.Rotate(rotationX,0,0);
+            //transform.Rotate(Vector3.up, rotationY, Space.World);
         }
     }
     bool CompareRotation()
     {
-        // Check if the rotation is approximately -90 degrees around the x-axis
-        return Quaternion.Angle(desiredRotation, transform.rotation)<1? true : false;
+        //// Check if the rotation is approximately -90 degrees around the x-axis
+        //return Quaternion.Angle(desiredRotation, transform.rotation)<1? true : false;
+        // Calculate the angle between the current rotation and the desired rotation
+        float angleDifference = Quaternion.Angle(desiredRotation, transform.rotation);
+
+        // Define a custom threshold for approximately equal comparison
+        float customThreshold = 1.0f; // Adjust as needed
+
+        // Check if the angle difference is within a tolerance threshold
+        // Also, consider rotations around the Z-axis as correct solutions
+        bool isApproximatelyEqual = Mathf.Abs(angleDifference - 360f) < customThreshold;
+        // Return true if the angle difference is within the tolerance threshold or approximately equal to 360 degrees
+        return angleDifference < 3f || isApproximatelyEqual;
     }
     IEnumerator FadeModel()
     {
