@@ -10,12 +10,12 @@ public class RotationGame : MiniGame
     private Quaternion desiredRotation;
     private bool isRotating = true; // Flag to indicate whether the model is rotating
     bool isFading = false;// Flag to indicate whether the model is fading
-    
+
 
 
     private void Start()
     {
-        desiredRotation= transform.rotation;
+        desiredRotation = transform.rotation;
         RandomizeRotation();
     }
     void Update() //Handle logic
@@ -26,6 +26,9 @@ public class RotationGame : MiniGame
             AutoRotate();
         if (!isFading && CompareRotation())
         {
+            if (Input.touchCount != 0)
+                if (Input.GetTouch(0).phase != TouchPhase.Ended)
+                    return;
             isRotating = false;
             StartCoroutine(FadeModel());
         }
