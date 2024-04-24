@@ -21,6 +21,6 @@ public class ToggleAudiotour : MonoBehaviour
         prototypeScreen.gameObject.SetActive(!audioTour);
         prototypeScreenUI.gameObject.SetActive(!audioTour);
         audiotourScreen.gameObject.SetActive(audioTour);
-        buttonDescription.text = audioTour ? "Back" : "Audiotour";
+        buttonDescription.text = audioTour ? "Terug" : "Audiotour";
     }
 }
