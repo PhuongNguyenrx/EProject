@@ -2,6 +2,7 @@ using System.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
+//connect with ImagePanel.cs
 [RequireComponent(typeof(Button))]
 [RequireComponent (typeof(Image))]
 public class ImageZoom : MonoBehaviour

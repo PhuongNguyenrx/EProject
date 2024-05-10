@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ToggleAudiotour : MonoBehaviour
+//Toggle to Audiotourscreen
+public class AudiotourToggle : MonoBehaviour
 {
     [SerializeField] Transform prototypeScreen;
     [SerializeField] Transform prototypeScreenUI;

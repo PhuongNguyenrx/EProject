@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioBar : MonoBehaviour
+//The slider used for audiotour
+public class AudiotourBar : MonoBehaviour
 {
     Slider audioSlider;
     private AudioSource audio;

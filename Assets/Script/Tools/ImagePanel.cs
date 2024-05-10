@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Image linked to panel for zoom/pan
 public class ImagePanel : MonoBehaviour
 {
     private RectTransform panelRectTransform; // Reference to the panel's RectTransform

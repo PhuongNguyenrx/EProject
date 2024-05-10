@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class Scrolling : MonoBehaviour
+//screenscrolling
+public class ScreenScroll : MonoBehaviour
 {
     [SerializeField] Transform stageHolder;
     [SerializeField] float yoffset;
