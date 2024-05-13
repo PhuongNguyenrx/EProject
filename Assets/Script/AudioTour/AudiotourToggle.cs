@@ -16,7 +16,12 @@ public class AudiotourToggle : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(Toggle);
     }
 
-    void Toggle()
+    private void OnEnable()
+    {
+        prototypeScreen.gameObject.SetActive(!audioTour);
+    }
+
+    public void Toggle()
     {
         audioTour = !audioTour;
         prototypeScreen.gameObject.SetActive(!audioTour);

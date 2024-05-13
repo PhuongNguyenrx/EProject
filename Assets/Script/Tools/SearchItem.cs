@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SearchItem : MonoBehaviour
 {
+    public bool favorite = false;
     [SerializeField]
     private List<string> uniqueIDs = new List<string>(); // List to store unique IDs or tags
 
@@ -12,4 +13,6 @@ public class SearchItem : MonoBehaviour
     {
         return uniqueIDs;
     }
+
+    public void ToggleFavorite() => favorite = !favorite;
 }
