@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//screenscrolling
+//screenscrolling OUTDATED
 public class ScreenScroll : MonoBehaviour
 {
     [SerializeField] Transform stageHolder;
@@ -64,10 +64,10 @@ public class ScreenScroll : MonoBehaviour
                     isScrolling = false;
                     if (Mathf.Abs(touchDelta) > minTouchDeltaForReturn)
                     {
-                        if (GameManager.instance.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0)
-                            GameManager.instance.UpdateStageIndex (GameManager.instance.currentStageIndex + 1);
-                        else if (GameManager.instance.currentStageIndex > 0 && touchDelta < 0)
-                            GameManager.instance.UpdateStageIndex(GameManager.instance.currentStageIndex - 1);
+                        //if (GameManager.instance.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0)
+                        //    GameManager.instance.UpdateStageIndex (GameManager.instance.currentStageIndex + 1);
+                        //else if (GameManager.instance.currentStageIndex > 0 && touchDelta < 0)
+                        //    GameManager.instance.UpdateStageIndex(GameManager.instance.currentStageIndex - 1);
                     }
                     UpdateScrollPosition();
                     touchDelta = 0;

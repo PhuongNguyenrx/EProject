@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TS.PageSlider;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int currentStageIndex { get; private set; }
-    [SerializeField] GameObject[] stageUI;
+    [SerializeField] PageScroller scroller;
+    [SerializeField] List<Transform> stageGames;
     private void Awake()
     {
         if (instance == null)
@@ -22,12 +24,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateStageIndex(currentStageIndex);
+        scroller.OnPageChangeEnded.AddListener(UpdateStage);
     }
-    public void UpdateStageIndex(int newStageIndex)
+
+    public void UpdateStage(int prevStageIndex, int newStageIndex)
     {
-        stageUI[currentStageIndex].SetActive(false);
-        stageUI[newStageIndex].SetActive(true);
         currentStageIndex = newStageIndex;
+        stageGames[prevStageIndex].gameObject.SetActive(false);
+        stageGames[newStageIndex].gameObject.SetActive(true);
     }
 }

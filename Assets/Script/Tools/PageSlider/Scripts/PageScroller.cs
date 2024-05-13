@@ -96,9 +96,9 @@ namespace TS.PageSlider
         }
         private void Update()
         {
+            
             // If there's no movement in progress (moveSpeed is 0), exit the function early.
             if (_moveSpeed == 0) { return; }
-
             // Get the current normalized position of the scroll rect (between 0 and 1).
             // Update the current position based on the move speed and deltaTime.
             var position = _scrollRect.horizontalNormalizedPosition;
@@ -128,6 +128,7 @@ namespace TS.PageSlider
                 // Update the _currentPage variable to reflect the new active page.
                 _currentPage = _targetPage;
             }
+
         }
 
         public void SetPage(int index)
@@ -250,7 +251,6 @@ namespace TS.PageSlider
         {
             return page * (1f / GetPageCount());
         }
-
         private ScrollRect FindScrollRect()
         {
             var scrollRect = GetComponentInChildren<ScrollRect>();
