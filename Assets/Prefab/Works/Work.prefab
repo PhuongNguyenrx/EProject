@@ -270,7 +270,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -290,9 +290,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7434c8027772a874c981203fec95b749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchController: {fileID: 0}
+  favorite: 0
   uniqueIDs:
   - z
   - 1
+  categories: []
 --- !u!114 &5601259546875079330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +436,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 30
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
