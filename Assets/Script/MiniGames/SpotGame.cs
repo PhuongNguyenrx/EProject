@@ -5,10 +5,13 @@ public class SpotGame : MiniGame
 {
     LineAnimator lineAnimator;
     [SerializeField] float timeInterval = 0.1f;
+    SpriteRenderer spriteRenderer;
 
     private void Start()
     {
-       lineAnimator = GetComponent<LineAnimator>();
+        lineAnimator = GetComponent<LineAnimator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        GameManager.instance.ToggleScroll(false);
     }
     private void Update()
     {
@@ -23,49 +26,38 @@ public class SpotGame : MiniGame
             // Check if the ray hits any 2D colliders
             if (hit.collider != null)
                 Skip();
-            
         }
     }
     IEnumerator FadeImage()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         // Get the color value of the main material
         Color color = spriteRenderer.materials[0].color;
 
-        if (!isSolved)
-            // While the color's alpha value is above 0
-            while (color.a > 0)
-            {
-                // Reduce the color's alpha value
-                color.a -= 0.1f;
+        while (color.a > 0)
+        {
+            // Reduce the color's alpha value
+            color.a -= 0.1f;
 
-                // Apply the modified color to the object's mesh renderer
-                spriteRenderer.materials[0].color = color;
+            // Apply the modified color to the object's mesh renderer
+            spriteRenderer.materials[0].color = color;
 
-                // Wait for the frame to update
-                yield return new WaitForSeconds(timeInterval);
-            }
-        else
-            while (color.a < 1)
-            {
-                // Reduce the color's alpha value
-                color.a += 0.1f;
-
-                // Apply the modified color to the object's mesh renderer
-                spriteRenderer.materials[0].color = color;
-
-                // Wait for the frame to update
-                yield return new WaitForSeconds(timeInterval);
-            }
+            // Wait for the frame to update
+            yield return new WaitForSeconds(timeInterval);
+        }
+       
         // If material completely transparent or completely opaque, end coroutine
         yield return new WaitUntil(() => isSolved ? spriteRenderer.materials[0].color.a >= 1f : spriteRenderer.materials[0].color.a <= 0);
-        yield return isSolved = true;
+        GameManager.instance.ToggleScroll(true);
+        isSolved = true;
     }
     public override void ResetGame()
     {
-        StartCoroutine(FadeImage());
-        isSolved = false;
+        GameManager.instance.ToggleScroll(false);
+        Color color = spriteRenderer.materials[0].color;
+        color.a = 1;
+        spriteRenderer.materials[0].color = color;
         lineAnimator.Disable();
+        isSolved = false;
     }
 
     public override void Skip()

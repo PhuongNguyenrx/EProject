@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StageText : MonoBehaviour
+public class Stage : MonoBehaviour
 {
     [SerializeField] MiniGame stageMiniGame;
     [SerializeField] GameObject textHolder;

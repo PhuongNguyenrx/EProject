@@ -96,7 +96,7 @@ namespace TS.PageSlider
         }
         private void Update()
         {
-            
+            _scrollRect.enabled = GameManager.instance.scrollEnabled;
             // If there's no movement in progress (moveSpeed is 0), exit the function early.
             if (_moveSpeed == 0) { return; }
             // Get the current normalized position of the scroll rect (between 0 and 1).

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public int currentStageIndex { get; private set; }
     [SerializeField] PageScroller scroller;
     [SerializeField] List<Transform> stageGames;
+    public bool scrollEnabled = true;
     private void Awake()
     {
         if (instance == null)
@@ -32,5 +33,10 @@ public class GameManager : MonoBehaviour
         currentStageIndex = newStageIndex;
         stageGames[prevStageIndex].gameObject.SetActive(false);
         stageGames[newStageIndex].gameObject.SetActive(true);
+    }
+
+    public void ToggleScroll(bool toggle)
+    {
+        scrollEnabled = toggle;
     }
 }

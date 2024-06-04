@@ -6,6 +6,7 @@ public class RotationGame : MiniGame
     [SerializeField] float touchSensitivity = 0.1f; // Touch sensitivity for rotation
     [SerializeField] private float smoothReturnSpeed = 1f;
     [SerializeField] float customThreshold;
+    MeshRenderer meshRenderer;
 
     private Quaternion desiredRotation;
     private bool isRotating = true; // Flag to indicate whether the model is rotating
@@ -16,6 +17,7 @@ public class RotationGame : MiniGame
     private void Start()
     {
         desiredRotation = transform.rotation;
+        meshRenderer = GetComponent<MeshRenderer>();
         RandomizeRotation();
     }
     void Update() //Handle logic
@@ -37,9 +39,11 @@ public class RotationGame : MiniGame
 
     void RandomizeRotation()
     {
+        GameManager.instance.ToggleScroll(false);
         float randomXRotation = Random.Range(-45f, 45f);
         transform.Rotate(randomXRotation, 0, 0);    
     }
+
     void HandleRotateInput()
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
@@ -70,7 +74,6 @@ public class RotationGame : MiniGame
     IEnumerator FadeModel()
     {
         isFading = true;
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         // Get the color value of the main material
         Color color = meshRenderer.materials[0].color;
 
@@ -100,8 +103,9 @@ public class RotationGame : MiniGame
                 yield return new WaitForSeconds(0.1f);
             }
         // If material completely transparent or completely opaque, end coroutine
-        yield return new WaitUntil(() => isSolved? meshRenderer.materials[0].color.a >= 1f : meshRenderer.materials[0].color.a <= 0);
-        yield return isSolved = true;
+        yield return new WaitUntil(() => meshRenderer.materials[0].color.a <= 0);
+        GameManager.instance.ToggleScroll(true);
+        isSolved = true;
     }
     void AutoRotate()
     {
@@ -117,9 +121,11 @@ public class RotationGame : MiniGame
     {
         skip = false;
         RandomizeRotation();
-        StartCoroutine(FadeModel());
+        Color color = meshRenderer.materials[0].color;
+        color.a = 1;
+        meshRenderer.materials[0].color = color;
+        isSolved = false;
         isFading = false;
         isRotating = true;
-        isSolved = false;
     }
 }
