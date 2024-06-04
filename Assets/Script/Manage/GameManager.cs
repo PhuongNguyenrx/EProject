@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using TS.PageSlider;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] PageScroller scroller;
     [SerializeField] List<Transform> stageGames;
     public bool scrollEnabled = true;
+    public UnityEvent OnPageChange;
+
     private void Awake()
     {
         if (instance == null)
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
         currentStageIndex = newStageIndex;
         stageGames[prevStageIndex].gameObject.SetActive(false);
         stageGames[newStageIndex].gameObject.SetActive(true);
+        OnPageChange.Invoke();
     }
 
     public void ToggleScroll(bool toggle)

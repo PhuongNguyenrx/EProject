@@ -30,6 +30,8 @@ public class SearchItem : MonoBehaviour
         }
     }
 
+    public void ToggleFavorite() => favorite = !favorite;
+
     [System.Serializable]
     public class ItemCategory
     {
