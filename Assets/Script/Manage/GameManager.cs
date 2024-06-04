@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TS.PageSlider;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class GameManager : MonoBehaviour
     public int currentStageIndex { get; private set; }
     [SerializeField] PageScroller scroller;
     [SerializeField] List<Transform> stageGames;
+    
+    [SerializeField] List<string> stageNames;
+    [SerializeField] TextMeshProUGUI stageTitle;
+
+    [SerializeField] AudioSource TTS;
+
     public bool scrollEnabled = true;
     public UnityEvent OnPageChange;
 
@@ -35,6 +42,8 @@ public class GameManager : MonoBehaviour
         currentStageIndex = newStageIndex;
         stageGames[prevStageIndex].gameObject.SetActive(false);
         stageGames[newStageIndex].gameObject.SetActive(true);
+        stageTitle.text = stageNames[newStageIndex];
+        TTS.Pause();
         OnPageChange.Invoke();
     }
 
