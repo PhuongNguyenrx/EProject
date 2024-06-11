@@ -6,6 +6,7 @@ public class RotationGame : MiniGame
     [SerializeField] float touchSensitivity = 0.1f; // Touch sensitivity for rotation
     [SerializeField] private float smoothReturnSpeed = 1f;
     [SerializeField] float customThreshold;
+    [SerializeField] float fadeInterval = 0.1f;
     MeshRenderer meshRenderer;
 
     private Quaternion desiredRotation;
@@ -20,6 +21,7 @@ public class RotationGame : MiniGame
         meshRenderer = GetComponent<MeshRenderer>();
         RandomizeRotation();
     }
+
     void Update() //Handle logic
     {
         if (isRotating)
@@ -88,20 +90,8 @@ public class RotationGame : MiniGame
                 meshRenderer.materials[0].color = color;
 
                 // Wait for the frame to update
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(fadeInterval);
             } 
-        else
-            while (color.a < 1)
-            {
-                // Reduce the color's alpha value
-                color.a += 0.1f;
-
-                // Apply the modified color to the object's mesh renderer
-                meshRenderer.materials[0].color = color;
-
-                // Wait for the frame to update
-                yield return new WaitForSeconds(0.1f);
-            }
         // If material completely transparent or completely opaque, end coroutine
         yield return new WaitUntil(() => meshRenderer.materials[0].color.a <= 0);
         GameManager.instance.ToggleScroll(true);

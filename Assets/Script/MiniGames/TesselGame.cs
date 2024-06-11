@@ -1,9 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TesselGame: MiniGame
 {
-    [SerializeField] float timeInterval = 0.1f;
+    [SerializeField] float fadeInterval = 0.1f;
+    [SerializeField] float fadeDelay=1;
+
+    [SerializeField] GameObject spritePrefab;
 
     private bool isDragging = false;
     private bool isTap = false;
@@ -18,9 +22,11 @@ public class TesselGame: MiniGame
     BoxCollider2D objectCollider;
     [SerializeField] BoxCollider2D[] markings;
 
+    Vector3 intialPos;
     SpriteRenderer spriteRenderer;
     [SerializeField] SpriteRenderer image;
-
+    
+    List<GameObject> instantiatedSprites = new List<GameObject>();
 
 
     void Start()
@@ -28,6 +34,7 @@ public class TesselGame: MiniGame
         mainCamera = Camera.main;
         objectCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        intialPos = gameObject.transform.position;
 
         ResetGame();
     }
@@ -81,8 +88,10 @@ public class TesselGame: MiniGame
 
         if (IsObjectFullyInsideMarking())
         {
-            Debug.Log("Object is fully inside marking!");
+            //Debug.Log("Object is fully inside marking!");
             // Hide current marking and show the next one
+            var newSprite = Instantiate(spritePrefab, markings[markingIndex].transform.position, markings[markingIndex].transform.rotation,gameObject.transform.parent.transform);
+            instantiatedSprites.Add(newSprite);
             markings[0].gameObject.SetActive(false);
             ShowNextMarking();
         }
@@ -123,6 +132,7 @@ public class TesselGame: MiniGame
 
     IEnumerator FadeImage()
     {
+        yield return new WaitForSeconds(fadeDelay);
         // Get the color value of the main material
         Color color = image.materials[0].color;
 
@@ -135,7 +145,7 @@ public class TesselGame: MiniGame
             image.materials[0].color = color;
 
             // Wait for the frame to update
-            yield return new WaitForSeconds(timeInterval);
+            yield return new WaitForSeconds(fadeInterval);
         }
 
         // If material completely transparent or completely opaque, end coroutine
@@ -147,13 +157,14 @@ public class TesselGame: MiniGame
     public override void ResetGame()
     {
         GameManager.instance.ToggleScroll(false);
-
         Color color = image.materials[0].color;
         color.a = 1;
         image.materials[0].color = color;
         image.gameObject.SetActive(false);
 
         spriteRenderer.enabled = true;
+        gameObject.transform.position = intialPos;
+
         markingIndex = 0;
         markings[markingIndex].gameObject.SetActive(true);
         isSolved = false;
@@ -165,6 +176,11 @@ public class TesselGame: MiniGame
             marking.gameObject.SetActive(false);
         image.gameObject.SetActive(true);
         spriteRenderer.enabled = false;
+
+        foreach (var sprite in instantiatedSprites)
+            Destroy(sprite);
+        instantiatedSprites.Clear();
+
         StartCoroutine(FadeImage());
     }
 

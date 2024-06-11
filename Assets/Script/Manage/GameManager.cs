@@ -21,10 +21,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance == null || instance.isActiveAndEnabled == false)
         {
             instance = this; // Set instance to this object
-            DontDestroyOnLoad(gameObject); // Don't destroy this object when changing scenes
         }
         else
         {

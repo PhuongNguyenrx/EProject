@@ -4,7 +4,8 @@ using UnityEngine;
 public class SpotGame : MiniGame
 {
     LineAnimator lineAnimator;
-    [SerializeField] float timeInterval = 0.1f;
+    [SerializeField] float fadeInterval = 0.1f;
+    [SerializeField] float fadeDelay = 1;
     SpriteRenderer spriteRenderer;
 
     private void Start()
@@ -30,6 +31,7 @@ public class SpotGame : MiniGame
     }
     IEnumerator FadeImage()
     {
+        yield return new WaitForSeconds(fadeDelay);
         // Get the color value of the main material
         Color color = spriteRenderer.materials[0].color;
 
@@ -42,7 +44,7 @@ public class SpotGame : MiniGame
             spriteRenderer.materials[0].color = color;
 
             // Wait for the frame to update
-            yield return new WaitForSeconds(timeInterval);
+            yield return new WaitForSeconds(fadeInterval);
         }
        
         // If material completely transparent or completely opaque, end coroutine
