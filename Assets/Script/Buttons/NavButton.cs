@@ -8,19 +8,21 @@ public class NavButton : MonoBehaviour
     [SerializeField] private PageScroller scroller;
     [SerializeField] private int pageNumber;
 
+    [SerializeField] GameManager gameManager;
+
     private void Start()
     {
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ScrollToPage);
-        GameManager.instance.OnPageChange.AddListener(UpdateToggleState);
+       gameManager.OnPageChange.AddListener(UpdateToggleState);
     }
     void Update()
     {
-        toggle.interactable = GameManager.instance.scrollEnabled;
+        toggle.interactable = gameManager.scrollEnabled;
     }
     void UpdateToggleState()
     {
-            toggle.isOn = (pageNumber == GameManager.instance.currentStageIndex);
+            toggle.isOn = (pageNumber == gameManager.currentStageIndex);
     }    
     void ScrollToPage(bool isOn)
     {

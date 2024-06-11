@@ -33,8 +33,9 @@ public class ImagePanel : MonoBehaviour
 
         Touch touch = Input.GetTouch(0);
 
-        if (Input.touchCount >= 2)
+        if (Input.touchCount == 2)
         {
+            initialScale = panelRectTransform.localScale;
             HandlePinchZoom();
             return;
         }
@@ -64,35 +65,32 @@ public class ImagePanel : MonoBehaviour
 
     void HandlePinchZoom()
     {
-        {
             
-            Touch touch0 = Input.GetTouch(0);
-            Touch touch1 = Input.GetTouch(Input.touchCount-1);
+        Touch touch0 = Input.GetTouch(0);
+        Touch touch1 = Input.GetTouch(1);
 
-            Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
-            Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;
+        Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
+        Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;
 
-            float prevMagnitude = (touch0PrevPos - touch1PrevPos).magnitude;
-            float currentMagnitude = (touch0.position - touch1.position).magnitude;
+        float prevMagnitude = (touch0PrevPos - touch1PrevPos).magnitude;
+        float currentMagnitude = (touch0.position - touch1.position).magnitude;
 
-            float difference = currentMagnitude - prevMagnitude;
+        float difference = currentMagnitude - prevMagnitude;
 
-            initialScale = panelRectTransform.localScale;
-            float scaleFactor = Mathf.Clamp(initialScale.x - difference * zoomSpeed, minZoomScale, maxZoomScale);
-            panelRectTransform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
-            //if (touch0.phase == TouchPhase.Began || touch1.phase == TouchPhase.Began)
-            //{
-            //    initialPinchDistance = (touch0.position - touch1.position).magnitude;
-            //    initialScale = panelRectTransform.localScale;
-            //}
-            //else if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
-            //{
-            //    float currentDistance = (touch0.position - touch1.position).magnitude;
-            //    float deltaDistance = currentDistance - initialPinchDistance;
-            //    float scaleFactor = Mathf.Clamp(initialScale.x - deltaDistance * zoomSpeed, minZoomScale, maxZoomScale);
-            //    panelRectTransform.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
-            //}
-        }
+        float scaleFactor = Mathf.Clamp(initialScale.x - difference * zoomSpeed, minZoomScale, maxZoomScale);
+        panelRectTransform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+        //if (touch0.phase == TouchPhase.Began || touch1.phase == TouchPhase.Began)
+        //{
+        //    initialPinchDistance = (touch0.position - touch1.position).magnitude;
+        //    initialScale = panelRectTransform.localScale;
+        //}
+        //else if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
+        //{
+        //    float currentDistance = (touch0.position - touch1.position).magnitude;
+        //    float deltaDistance = currentDistance - initialPinchDistance;
+        //    float scaleFactor = Mathf.Clamp(initialScale.x - deltaDistance * zoomSpeed, minZoomScale, maxZoomScale);
+        //    panelRectTransform.localScale = new Vector3(scaleFactor, scaleFactor, 1f);
+        //}
     }
 
     private void ClampPanPosition()

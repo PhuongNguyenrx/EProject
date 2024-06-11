@@ -4532,6 +4532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 605622124}
   pageNumber: 1
+  gameManager: {fileID: 1100411786}
 --- !u!114 &416929726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5330,6 +5331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 1010817040}
   pageNumber: 0
+  gameManager: {fileID: 2026968432}
 --- !u!114 &493403673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5678,6 +5680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 1010817040}
   pageNumber: 2
+  gameManager: {fileID: 2026968432}
 --- !u!114 &532409044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5829,6 +5832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 605622124}
   pageNumber: 3
+  gameManager: {fileID: 1100411786}
 --- !u!114 &544275422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6007,6 +6011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 605622124}
   pageNumber: 0
+  gameManager: {fileID: 1100411786}
 --- !u!114 &593265114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10025,6 +10030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 1010817040}
   pageNumber: 1
+  gameManager: {fileID: 2026968432}
 --- !u!114 &896160331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12438,6 +12444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 605622124}
   pageNumber: 2
+  gameManager: {fileID: 1100411786}
 --- !u!114 &1079116224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25652,6 +25659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroller: {fileID: 1010817040}
   pageNumber: 3
+  gameManager: {fileID: 2026968432}
 --- !u!114 &2061770627
 MonoBehaviour:
   m_ObjectHideFlags: 0
