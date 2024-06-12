@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class RotationGame : MiniGame
 {
+    [SerializeField] GameManager manager;
     [SerializeField] float touchSensitivity = 0.1f; // Touch sensitivity for rotation
     [SerializeField] private float smoothReturnSpeed = 1f;
     [SerializeField] float customThreshold;
@@ -41,7 +42,7 @@ public class RotationGame : MiniGame
 
     void RandomizeRotation()
     {
-        GameManager.instance.ToggleScroll(false);
+        manager.ToggleScroll(false);
         float randomXRotation = Random.Range(-45f, 45f);
         transform.Rotate(randomXRotation, 0, 0);    
     }
@@ -94,7 +95,7 @@ public class RotationGame : MiniGame
             } 
         // If material completely transparent or completely opaque, end coroutine
         yield return new WaitUntil(() => meshRenderer.materials[0].color.a <= 0);
-        GameManager.instance.ToggleScroll(true);
+        manager.ToggleScroll(true);
         isSolved = true;
     }
     void AutoRotate()

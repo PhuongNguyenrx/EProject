@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpotGame : MiniGame
 {
+    [SerializeField] GameManager manager;
     LineAnimator lineAnimator;
     [SerializeField] float fadeInterval = 0.1f;
     [SerializeField] float fadeDelay = 1;
@@ -12,7 +13,7 @@ public class SpotGame : MiniGame
     {
         lineAnimator = GetComponent<LineAnimator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        GameManager.instance.ToggleScroll(false);
+        manager.ToggleScroll(false);
     }
     private void Update()
     {
@@ -49,12 +50,12 @@ public class SpotGame : MiniGame
        
         // If material completely transparent or completely opaque, end coroutine
         yield return new WaitUntil(() => isSolved ? spriteRenderer.materials[0].color.a >= 1f : spriteRenderer.materials[0].color.a <= 0);
-        GameManager.instance.ToggleScroll(true);
+        manager.ToggleScroll(true);
         isSolved = true;
     }
     public override void ResetGame()
     {
-        GameManager.instance.ToggleScroll(false);
+        manager.ToggleScroll(false);
         Color color = spriteRenderer.materials[0].color;
         color.a = 1;
         spriteRenderer.materials[0].color = color;

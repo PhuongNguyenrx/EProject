@@ -20,7 +20,7 @@ public class ScreenScroll : MonoBehaviour
     Vector3 startingPos;
 
     [SerializeField] private float scrollSpeedMultiplier = 0.0001f; // Multiplier to control scroll speed
-    
+    [SerializeField] GameManager manager;
     // Set up screen heights, mintouchdelta, etc
     void Start()
     {
@@ -54,7 +54,7 @@ public class ScreenScroll : MonoBehaviour
                     {
                         // Calculate touch delta
                         touchDelta = touch.position.y - touchStartPos.y;
-                        if(GameManager.instance.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0 || GameManager.instance.currentStageIndex > 0 && touchDelta < 0)
+                        if(manager.currentStageIndex < stageHolder.childCount - 1 && touchDelta > 0 || manager.currentStageIndex > 0 && touchDelta < 0)
                         stageHolder.transform.position += new Vector3(0f, touchDelta * scrollSpeedMultiplier, 0f);
                     }
                     break;
@@ -78,6 +78,6 @@ public class ScreenScroll : MonoBehaviour
 
     public void UpdateScrollPosition()
     {
-        stageHolder.position = new Vector3(stageHolder.position.x, Mathf.Abs(yoffset * GameManager.instance.currentStageIndex), stageHolder.position.z);
+        stageHolder.position = new Vector3(stageHolder.position.x, Mathf.Abs(yoffset * manager.currentStageIndex), stageHolder.position.z);
     }
 }

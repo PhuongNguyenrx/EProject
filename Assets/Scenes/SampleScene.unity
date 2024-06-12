@@ -5125,6 +5125,10 @@ PrefabInstance:
       value: 4680
       objectReference: {fileID: 0}
     - target: {fileID: 2230961183693669850, guid: 8b42e8dea396a36498a64d514ba721c0, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 2026968432}
+    - target: {fileID: 2230961183693669850, guid: 8b42e8dea396a36498a64d514ba721c0, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 2026968432}
@@ -6414,6 +6418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSolved: 0
+  manager: {fileID: 1100411786}
   fadeInterval: 0.08
   fadeDelay: 1.2
   spritePrefab: {fileID: 6569360816185527806, guid: afeb3d1a2e95d714383dca5d2cb2dc38, type: 3}
@@ -6594,6 +6599,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 4680
       objectReference: {fileID: 0}
+    - target: {fileID: 2230961183693669850, guid: 8b42e8dea396a36498a64d514ba721c0, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1100411786}
     - target: {fileID: 2230961183693669850, guid: 8b42e8dea396a36498a64d514ba721c0, type: 3}
       propertyPath: gameManager
       value: 
@@ -6996,7 +7005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &677401471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11012,7 +11021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &974535323
 Transform:
   m_ObjectHideFlags: 0
@@ -11393,10 +11402,10 @@ RectTransform:
   - {fileID: 1915935289}
   m_Father: {fileID: 677401471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -1179.2949}
-  m_SizeDelta: {x: 2048, y: 700}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2048, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1011991254
 CanvasRenderer:
@@ -13786,8 +13795,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSolved: 0
+  manager: {fileID: 2026968432}
   fadeInterval: 0.1
-  fadeDelay: 3
+  fadeDelay: 1.8
 --- !u!61 &1183431181
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14042,10 +14052,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 677401471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -667.675}
-  m_SizeDelta: {x: 970.395, y: 163.24}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 970.395, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212124997
 MonoBehaviour:
@@ -15092,10 +15102,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 677401471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -418.16}
-  m_SizeDelta: {x: 688.41, y: 175.79}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 688.41, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1363668435
 MonoBehaviour:
@@ -24709,10 +24719,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 677401471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -1649.5149}
-  m_SizeDelta: {x: 619.54004, y: 80.44}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 619.54004, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2034858515
 MonoBehaviour:
@@ -27160,6 +27170,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2147993202419061876, guid: b6c3c621a2672a04d94a5db2535e4c79, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 2026968432}
     - target: {fileID: 3284840729716322331, guid: b6c3c621a2672a04d94a5db2535e4c79, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0

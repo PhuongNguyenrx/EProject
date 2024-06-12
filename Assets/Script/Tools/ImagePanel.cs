@@ -5,7 +5,7 @@ public class ImagePanel : MonoBehaviour
 {
     private RectTransform panelRectTransform; // Reference to the panel's RectTransform
     [SerializeField] private float panSpeed = 1f; // Speed of panning
-    [SerializeField] private float zoomSpeed = 0.5f; // Speed of zooming
+    [SerializeField] private float zoomSpeed = 1f; // Speed of zooming
     [SerializeField] private float minZoomScale = 1; // Minimum scale allowed for zooming
     [SerializeField] private float maxZoomScale = 8; // Maximum scale allowed for zooming
 
@@ -35,8 +35,7 @@ public class ImagePanel : MonoBehaviour
 
         if (Input.touchCount == 2)
         {
-            initialScale = panelRectTransform.localScale;
-            HandlePinchZoom();
+            //HandlePinchZoom();
             return;
         }
         else if (Input.touchCount == 1)

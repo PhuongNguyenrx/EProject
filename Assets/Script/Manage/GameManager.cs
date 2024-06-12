@@ -6,7 +6,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
     public int currentStageIndex { get; private set; }
     [SerializeField] PageScroller scroller;
     [SerializeField] List<Transform> stageGames;
@@ -19,17 +18,6 @@ public class GameManager : MonoBehaviour
     public bool scrollEnabled = true;
     public UnityEvent OnPageChange;
 
-    private void Awake()
-    {
-        if (instance == null || instance.isActiveAndEnabled == false)
-        {
-            instance = this; // Set instance to this object
-        }
-        else
-        {
-            Destroy(gameObject); // Destroy any duplicate instances of this object
-        }
-    }
 
     private void Start()
     {

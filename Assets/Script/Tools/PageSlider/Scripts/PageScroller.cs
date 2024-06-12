@@ -87,7 +87,7 @@ namespace TS.PageSlider
         private float _startNormalizedPosition; // Normalized position of the scroll bar when drag begins.
         private float _targetNormalizedPosition; // Normalized position of the scroll bar for the target page.
         private float _moveSpeed; // Speed of the scroll bar animation (normalized units per second).
-        public GameManager gameManager;
+        public GameManager manager;
         #endregion
 
         private void Awake()
@@ -96,7 +96,7 @@ namespace TS.PageSlider
         }
         private void Update()
         {
-            _scrollRect.enabled = gameManager.scrollEnabled;
+            _scrollRect.enabled = manager.scrollEnabled;
             // If there's no movement in progress (moveSpeed is 0), exit the function early.
             if (_moveSpeed == 0) { return; }
             // Get the current normalized position of the scroll rect (between 0 and 1).
