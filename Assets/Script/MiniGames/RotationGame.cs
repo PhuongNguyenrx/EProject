@@ -52,7 +52,7 @@ public class RotationGame : MiniGame
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-            float rotationX = -touchDeltaPosition.y * touchSensitivity;
+            float rotationX = touchDeltaPosition.y * touchSensitivity;
             //float rotationY = touchDeltaPosition.x * touchSensitivity;
             transform.Rotate(rotationX,0,0);
             //transform.Rotate(Vector3.up, rotationY, Space.World);

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         currentStageIndex = newStageIndex;
         stageGames[prevStageIndex].gameObject.SetActive(false);
         stageGames[newStageIndex].gameObject.SetActive(true);
-        stageTitle.text = stageNames[newStageIndex];
+        //stageTitle.text = stageNames[newStageIndex];
         TTS.Pause();
         OnPageChange.Invoke();
     }
